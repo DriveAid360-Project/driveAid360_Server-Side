@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: driveaid360-db
+    environment:
+      POSTGRES_DB: driveaid360
+      POSTGRES_USER: driveaid360
+      POSTGRES_PASSWORD: driveaid360_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - driveaid360-network
+
+  # DriveAid360 Server (optional - for containerized deployment)
+  # server:
+  #   build: .
+  #   container_name: driveaid360-server
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/driveaid360
+  #     SPRING_DATASOURCE_USERNAME: driveaid360
+  #     SPRING_DATASOURCE_PASSWORD: driveaid360_pass
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - driveaid360-network
+
+volumes:
+  postgres_data:
+
+networks:
+  driveaid360-network:
+    driver: bridge
