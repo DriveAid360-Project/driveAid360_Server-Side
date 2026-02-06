@@ -79,6 +79,7 @@ Thumbs.db
 # Application specific
 application-local.properties
 application-secrets.properties
+.env
 
 # H2 Database
 *.db

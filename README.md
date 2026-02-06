@@ -56,9 +56,34 @@ docker-compose up -d postgres
 ### Configuration
 
 Configuration files are located in `src/main/resources`:
-- `application.properties` - Default configuration
-- `application-dev.properties` - Development environment
+- `application.properties` - Default configuration (development)
 - `application-prod.properties` - Production environment
+
+**Security Best Practices:**
+1. Copy `.env.example` to `.env` and fill in your values
+2. Never commit `.env` or production secrets to version control
+3. Override sensitive values using environment variables in production:
+   ```bash
+   export JWT_SECRET="your-production-secret"
+   export DATABASE_PASSWORD="your-db-password"
+   export SPRING_PROFILES_ACTIVE=prod
+   ```
+4. Generate a strong JWT secret (minimum 256 bits):
+   ```bash
+   openssl rand -base64 64
+   ```
+
+### Running in Production
+
+1. Set the active profile:
+   ```bash
+   export SPRING_PROFILES_ACTIVE=prod
+   ```
+2. Set required environment variables (see `.env.example`)
+3. Run the application:
+   ```bash
+   java -jar target/driveaid360-server-1.0.0-SNAPSHOT.jar
+   ```
 
 ### API Documentation
 
